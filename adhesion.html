@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adhesion - IC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  
+<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #222; padding: 10px 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+  <div style="max-width: 1000px; margin: auto; display: flex; justify-content: center; gap: 30px;">
+    <a href="index.html" style="color: white; text-decoration: none; font-weight: bold;">Accueil</a>
+    <a href="pourquoi.html" style="color: white; text-decoration: none; font-weight: bold;">Pourquoi</a>
+    <a href="adhesion.html" style="color: white; text-decoration: none; font-weight: bold;">Adhésion</a>
+  </div>
+</nav>
+<div style="height: 60px;"></div>
+
+  <main>
+    <h1>Rejoindre l’Intelligence Collective</h1>
+<p>Formulaire d’adhésion :</p>
+<form onsubmit="sendEmail(); return false;">
+  <label for="name">Nom :</label><input type="text" id="name" required><br><br>
+  <label for="email">Email :</label><input type="email" id="email" required><br><br>
+  <label for="message">Message :</label><textarea id="message" rows="4" required></textarea><br><br>
+  <button type="submit">Envoyer</button>
+</form>
+<script>
+function sendEmail() {
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var message = document.getElementById("message").value;
+  var subject = encodeURIComponent("Nouvelle adhésion à l’IC");
+  var body = encodeURIComponent("Nom : " + name + "\nEmail : " + email + "\n\nMessage :\n" + message);
+  window.location.href = "mailto:Nat_Azoulay@hotmail.com?subject=" + subject + "&body=" + body;
+}
+</script>
+  </main>
+</body>
+</html>
