@@ -32,5 +32,27 @@
     <h1>Bienvenue sur la plateforme de l'Intelligence Collective</h1>
     <p>Ce site porte la voix des Gilets Jaunes éveillés et de tous ceux qui veulent reprendre le pouvoir sans violence.</p>
   </main>
-</body>
+<script>
+  async function askQuestion() {
+    const question = document.getElementById('question').value;
+    const responseDiv = document.getElementById('response');
+    responseDiv.textContent = 'Chargement...';
+
+    try {
+      const response = await fetch('https://ciau-backend.replit.app/ask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await response.json();
+      responseDiv.textContent = data.response;
+    } catch (error) {
+      responseDiv.textContent = 'Erreur lors de la récupération de la réponse.';
+      console.error(error);
+    }
+  }
+</script></body>
 </html>
