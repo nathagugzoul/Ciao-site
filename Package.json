@@ -2,7 +2,10 @@
   "name": "ic-api",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "dotenv": "^16.3.1",
+    "node-fetch": "^3.3.2"
   }
 }
