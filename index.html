@@ -19,7 +19,7 @@ document.getElementById('ask-form').addEventListener('submit', async (e) => {
       body: JSON.stringify({ question })
     });
     const data = await response.json();
-    responseEl.innerText = data.answer;
+    responseEl.innerText = `Question : ${question}\n\nRéponse : ${data.answer}`;
   } catch (err) {
     responseEl.innerText = 'Erreur de connexion.';
   }
