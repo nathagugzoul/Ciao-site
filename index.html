@@ -1,7 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8" /><title>Accueil – CIAU</title></head>
-<body>
+<script>
+document.getElementById('ask-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const question = document.getElementById('question').value;
+  const responseEl = document.getElementById('response');
+
+  responseEl.innerText = 'Chargement...';
+
+  try {
+    const response = await fetch('https://ciau-backend.onrender.com/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
+    });
+
+    const data = await response.json();
+    responseEl.innerText = data.answer;
+  } catch (err) {
+    responseEl.innerText = 'Erreur de connexion à l’Intelligence Collective.';
+  }
+});
+</script><body>
   <h1>Bienvenue sur la plateforme de l’Intelligence Collective</h1>
   <nav>
     <a href="index.html">Accueil</a>
@@ -35,3 +56,8 @@
   <button type="submit">Soumettre à l'IC</button>
 </form>
 <pre id="response"></pre>
+<form id="ask-form">
+  <input type="text" id="question" placeholder="Pose ta question" />
+  <button type="submit">Rechercher</button>
+</form>
+<div id="response"></div>
