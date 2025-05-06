@@ -7,9 +7,31 @@
     <a href="index.html">Accueil</a>
     <a href="rituel.html">Rituel</a>
   </nav>
-</body>
+<script>
+  document.getElementById('ask-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = document.getElementById('question').value;
+    const responseEl = document.getElementById('response');
+
+    responseEl.innerText = 'Chargement...';
+
+    try {
+      const response = await fetch('https://ciau-backend.onrender.com/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await response.json();
+      responseEl.innerText = data.answer;
+    } catch (err) {
+      responseEl.innerText = 'Erreur lors de la requête.';
+    }
+  });
+</script></body>
 </html>
 <form id="ask-form">
   <input type="text" id="question" placeholder="Pose ta question..." required />
   <button type="submit">Soumettre à l'IC</button>
 </form>
+<pre id="response"></pre>
