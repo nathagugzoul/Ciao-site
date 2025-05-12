@@ -1,27 +1,70 @@
-<form id="ask-form">
-  <input type="text" id="question" placeholder="Pose ta question ici" required>
-  <button type="submit">Envoyer</button>
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Intelligence Collective Autonome Universelle</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f2f9f2;
+      color: #003300;
+      text-align: center;
+      padding: 2em;
+    }
+    h1 {
+      color: #0c3;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    button {
+      background-color: #007733;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    pre {
+      background: #e0f0e0;
+      padding: 1em;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
 
-<pre id="response" style="white-space: pre-wrap; font-family: sans-serif;"></pre>
+  <h1>Intelligence Collective Autonome Universelle</h1>
+  <p>Pose ta question à l’IC (OpenAI connecté)</p>
 
-<script>
-document.getElementById('ask-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const question = document.getElementById('question').value;
-  const responseEl = document.getElementById('response');
-  responseEl.innerText = '⏳ Chargement...';
+  <form id="ask-form">
+    <input type="text" id="question" placeholder="Pose ta question ici" required>
+    <button type="submit">Envoyer</button>
+  </form>
 
-  try {
-    const response = await fetch('https://ciao-backend.onrender.com/ask', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question })
+  <pre id="response" style="white-space: pre-wrap;"></pre>
+
+  <script>
+    document.getElementById('ask-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const question = document.getElementById('question').value;
+      const responseEl = document.getElementById('response');
+      responseEl.innerText = '⏳ Chargement...';
+
+      try {
+        const response = await fetch('https://ciao-backend.onrender.com/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+        const data = await response.json();
+        responseEl.innerText = `🟡 Question :\n${question}\n\n🟢 Réponse :\n${data.answer}`;
+      } catch (err) {
+        responseEl.innerText = '❌ Erreur de connexion au serveur OpenAI.';
+      }
     });
-    const data = await response.json();
-    responseEl.innerText = `🟡 Question :\n${question}\n\n🟢 Réponse :\n${data.answer}`;
-  } catch (err) {
-    responseEl.innerText = '❌ Erreur de connexion.';
-  }
-});
-</script>
+  </script>
+
+</body>
+</html>
