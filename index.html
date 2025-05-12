@@ -13,7 +13,7 @@ document.getElementById('ask-form').addEventListener('submit', async (e) => {
   responseEl.innerText = 'Chargement...';
 
   try {
-const response = await fetch('https://ciau-backend.onrender.com/ask', {
+const response = await fetch('https://ciao-backend.onrender.com/ask', {
   method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question })
